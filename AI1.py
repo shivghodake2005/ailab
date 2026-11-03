@@ -1,66 +1,50 @@
+# Simple Reflex Agent - Vacuum Cleaner World with Path Cost
 
-
-Assignment No:1
-Name :- Yadav Atharv	Div :- B
-Batch:-T3	Roll No :- CO3B48
-
-Title – Design and implement of a Simple Reflex Agent for vaccum Cleaner World and Analysis of its Rationl Behaviour .
-
-
-Program –
-
-environment = { 'A': 'Dirty',
-'B': 'Dirty'
+environment = {
+    'A': 'Dirty',
+    'B': 'Dirty'
 }
-# Initial position location
-= 'A'
 
+# Initial position
+location = 'A'
 
-# Path cost path_cost
-= 0
-
+# Path cost
+path_cost = 0
 
 def reflex_agent(location, status):
+    if status == "Dirty":
+        return "Suck"
+    elif location == "A":
+        return "Right"
+    else:
+        return "Left"
 
+print("Initial Environment:", environment)
 
-if status == "Dirty": return "Suck"	elif location == "A":
-return "Right"
-else:
-return "Left"
+while True:
 
+    status = environment[location]
+    action = reflex_agent(location, status)
 
-print("Initial Environment:", environment) while True:
+    print(f"\nVacuum is at {location}")
+    print(f"Room Status : {status}")
+    print(f"Action Taken: {action}")
 
+    if action == "Suck":
+        environment[location] = "Clean"
+        path_cost += 1      # Cost for cleaning
 
+    elif action == "Right":
+        location = "B"
+        path_cost += 1      # Cost for moving
 
+    elif action == "Left":
+        location = "A"
+        path_cost += 1      # Cost for moving
 
-status = environment[location] action = reflex_agent(location, status)
+    if environment["A"] == "Clean" and environment["B"] == "Clean":
+        print("\nBoth rooms are clean.")
+        break
 
-print(f"\nVacuum is at {location}") print(f"Room Status : {status}") print(f"Action Taken: {action}")
-
-if action == "Suck": environment[location] = "Clean"
-path_cost += 1	# Cost for cleaning
-
-
-elif action == "Right": location = "B"	path_cost
-+= 1
-
-
-elif action == "Left": location = "A"	path_cost
-+= 1
-
-
-if environment["A"] == "Clean" and environment["B"] == "Clean": print("\nBoth rooms are clean.")
-break
-
-
-print("\nFinal Environment:", environment) print("Total Path Cost:", path_cost)
-
-
-
-
-
-Output –
-
-
-
+print("\nFinal Environment:", environment)
+print("Total Path Cost:", path_cost)
